@@ -1,0 +1,131 @@
+.topPosition {
+  bottom: 100%;
+  padding-bottom: 12px;
+}
+
+.topPosition::after {
+  border-color: var(--ps-surface-inverse) transparent transparent transparent;
+  bottom: 0;
+}
+
+.bottomPosition {
+  padding-top: 12px;
+  top: 100%;
+}
+
+.bottomPosition::after {
+  border-color: transparent transparent var(--ps-surface-inverse) transparent;
+  top: 0;
+}
+
+.leftPosition {
+  padding-right: 12px;
+  right: 100%;
+}
+
+.leftPosition::after {
+  border-color: transparent transparent transparent var(--ps-surface-inverse);
+  right: 0;
+}
+
+.rightPosition {
+  left: 100%;
+  padding-left: 12px;
+}
+
+.rightPosition::after {
+  border-color: transparent var(--ps-surface-inverse) transparent transparent;
+  left: 0;
+}
+
+.horizontalCenter,
+.horizontalCenter::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.horizontalStart {
+  left: 0;
+}
+
+.horizontalStart::after {
+  left: 4px;
+}
+
+.horizontalEnd {
+  right: 0;
+}
+
+.horizontalEnd::after {
+  right: 4px;
+}
+
+.verticalCenter,
+.verticalCenter::after {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.verticalStart {
+  top: 0;
+}
+
+.verticalStart::after {
+  top: 4px;
+}
+
+.verticalEnd {
+  bottom: 0;
+}
+
+.verticalEnd::after {
+  bottom: 4px;
+}
+
+.topTooltip {
+  composes: topPosition horizontalCenter;
+}
+
+.topStartTooltip {
+  composes: topPosition horizontalStart;
+}
+
+.topEndTooltip {
+  composes: topPosition horizontalEnd;
+}
+
+.bottomTooltip {
+  composes: bottomPosition horizontalCenter;
+}
+
+.bottomStartTooltip {
+  composes: bottomPosition horizontalStart;
+}
+
+.bottomEndTooltip {
+  composes: bottomPosition horizontalEnd;
+}
+
+.leftTooltip {
+  composes: leftPosition verticalCenter;
+}
+
+.leftStartTooltip {
+  composes: leftPosition verticalStart;
+}
+
+.leftEndTooltip {
+  composes: leftPosition verticalEnd;
+}
+
+.rightTooltip {
+  composes: rightPosition verticalCenter;
+}
+
+.rightStartTooltip {
+  composes: rightPosition verticalStart;
+}
+
+.rightEndTooltip {
+  composes: rightPosition verticalEnd;
+}

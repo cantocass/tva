@@ -43,8 +43,8 @@ export { getJSInputProps } from './components/Input/inputJS'
 export { getMenuProps } from './components/Menu/menuCSS'
 export { getJSMenuProps } from './components/Menu/menuJS'
 
-export { getModalProps as unstable_getModalProps } from './components/Modal/modalCSS'
-export { getJSModalProps as unstable_getJSModalProps } from './components/Modal/modalJS'
+export { getModalProps } from './components/Modal/modalCSS'
+export { getJSModalProps } from './components/Modal/modalJS'
 
 export { getProgressProps } from './components/Progress/progressCSS'
 export { getJSProgressProps, muiReset } from './components/Progress/progressJS'
@@ -52,14 +52,20 @@ export { getJSProgressProps, muiReset } from './components/Progress/progressJS'
 export { getRadioProps } from './components/Radio/radioCSS'
 export { getJSRadioProps } from './components/Radio/radioJS'
 
+export { getSelectProps } from './components/Select/selectCSS'
+export { getJSSelectProps } from './components/Select/selectJS'
+
 export { getSkeletonProps } from './components/Skeleton/skeletonCSS'
 export { getJSSkeletonProps } from './components/Skeleton/skeletonJS'
 
 export { getSwitchProps } from './components/Switch/switchCSS'
 export { getJSSwitchProps } from './components/Switch/switchJS'
 
-export { unstable_getTabProps } from './components/Tab/tabCSS'
-export { unstable_getJSTabProps } from './components/Tab/tabJS'
+export { getTabProps } from './components/Tab/tabCSS'
+export { getJSTabProps } from './components/Tab/tabJS'
+
+export { getTableProps } from './components/Table/tableCSS'
+export { getJSTableProps } from './components/Table/tableJS'
 
 export { getTagProps } from './components/Tag/tagCSS'
 export { getJSTagProps } from './components/Tag/tagJS'
@@ -69,5 +75,8 @@ export { getJSTextareaProps } from './components/Textarea/textareaJS'
 
 export { getTextLinkProps } from './components/TextLink/textLinkCSS'
 export { getJSTextLinkProps } from './components/TextLink/textLinkJS'
+
+export { getTooltipProps } from './components/Tooltip/tooltipCSS'
+export { getJSTooltipProps } from './components/Tooltip/tooltipJS'
 
 export { chakraPSTheme } from './chakra'

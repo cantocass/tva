@@ -12,12 +12,15 @@ import { ChakraInput } from './components/Input/chakraInput'
 import { ChakraModal } from './components/Modal/chakraModal'
 import { ChakraProgress } from './components/Progress/progressJS'
 import { ChakraRadio } from './components/Radio/chakraRadio'
+import { ChakraSelect } from './components/Select/chakraSelect'
 import { ChakraSkeleton } from './components/Skeleton/skeletonJS'
 import { ChakraSwitch } from './components/Switch/chakraSwitch'
 import { ChakraTab } from './components/Tab/chakraTab'
+import { ChakraTable } from './components/Table/chakraTable'
 import { ChakraTag } from './components/Tag/chakraTag'
 import { ChakraTextarea } from './components/Textarea/chakraTextarea'
 import { ChakraTextLink } from './components/TextLink/chakraTextLink'
+import { ChakraTooltip } from './components/Tooltip/chakraTooltip'
 
 const Form = {
   parts: ['container', 'requiredIndicator', 'helperText'],
@@ -43,11 +46,14 @@ export const chakraPSTheme = {
     Modal: ChakraModal,
     Progress: ChakraProgress,
     Radio: ChakraRadio,
+    Select: ChakraSelect,
     Skeleton: ChakraSkeleton,
     Switch: ChakraSwitch,
+    Table: ChakraTable,
     Tabs: ChakraTab,
     Tag: ChakraTag,
     Textarea: ChakraTextarea,
+    Tooltip: ChakraTooltip,
   },
   fonts: {
     heading: 'PS TT Commons Roman',

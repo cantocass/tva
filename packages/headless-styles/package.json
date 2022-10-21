@@ -2,64 +2,73 @@
   "name": "@pluralsight/headless-styles",
   "version": "0.0.0",
   "description": "Headless styles for Pluralsight.",
-  "main": "build/index.js",
-  "module": "build/wrapper.js",
-  "types": "build/index.d.ts",
+  "main": "npm/index.js",
+  "module": "npm/browser.js",
+  "types": "npm/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./build/wrapper.js",
-      "require": "./build/index.js"
+      "import": "./npm/browser.js",
+      "require": "./npm/index.js"
     },
     "./types": {
-      "default": "./build/types.js",
-      "types": "./build/types.d.ts"
+      "types": "./npm/types/types.d.ts"
     }
   },
   "typesVersions": {
     "*": {
       "types": [
-        "build/types.d.ts"
+        "npm/types/types.d.ts"
       ]
     }
   },
   "files": [
-    "build/**/*"
+    "npm/**/*"
   ],
-  "sideEffects": [
-    "**/*.css",
-    "build/es/**/*.css",
-    "build/index.js",
-    "build/wrapper.mjs"
-  ],
+  "sideEffects": false,
   "workspaces": [
     "sandbox"
   ],
   "scripts": {
-    "build": "yarn build:common && yarn build:es",
-    "build:common": "yarn copy:css && tsc --project tsconfig.build.json",
-    "build:es": "yarn build:wrapper && yarn rename:wrapper && yarn copy:es",
-    "build:wrapper": "renamer --path-element name src/index.ts --find 'index' --replace 'wrapper'",
-    "copy:es": "copyfiles --up 1 ./src/wrapper.js build",
-    "copy:css": "copyfiles --up 1 ./src/**/*.module.css build",
-    "lint:ts": "tsc --project tsconfig.json",
-    "rename:wrapper": "renamer --path-element ext src/wrapper.ts --find '.ts' --replace '.js'",
+    "build": "yarn clean && yarn bundle && yarn clean:allUnused",
+    "bundle": "rollup --config rollup.config.mjs",
+    "clean": "yarn clean:bundles && yarn clean:types",
+    "clean:bundles": "rm -rf ./npm/browser && rm -rf ./npm/node",
+    "clean:types": "rm -rf ./npm/types",
+    "clean:allUnused": "yarn clean:unusedFiles && yarn clean:unusedDirs",
+    "clean:unusedFiles": "rm -rf npm/types/index.js",
+    "clean:unusedDirs": "yarn clean:unusedDirs:hs && yarn clean:unusedDirs:shared",
+    "clean:unusedDirs:hs": "rm -rf npm/types/headless-styles",
+    "clean:unusedDirs:shared": "rm -rf npm/types/shared",
+    "lint:ts": "tsc --project tsconfig.json --noEmit",
     "test": "echo \"'yarn test' should be run from root directory.\" && exit 1"
   },
   "dependencies": {
-    "@pluralsight/shared": "experimental",
-    "kebab-case": "^1.0.1",
     "tslib": "latest"
   },
   "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-typescript": "latest",
     "@pluralsight/design-tokens": "experimental",
-    "@types/copyfiles": "^2",
+    "@rollup/plugin-alias": "^4.0.0",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-replace": "^5.0.0",
+    "@rollup/plugin-typescript": "^9.0.1",
+    "@types/babel__core": "latest",
+    "@types/babel__preset-env": "latest",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.7.14",
     "@types/react": "latest",
-    "copyfiles": "^2.4.1",
+    "autoprefixer": "^10.4.12",
     "identity-obj-proxy": "^3.0.0",
-    "renamer": "^4.0.0",
-    "typescript": "4.7.4"
+    "postcss": "^8.4.18",
+    "rollup": "^3.2.2",
+    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "4.7.4",
+    "typescript-plugin-css-modules": "^3.4.0"
   },
   "keywords": [
     "pluralsight",

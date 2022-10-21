@@ -19,12 +19,15 @@ import Modal from './components/Modal'
 import PreloadedImg from './components/PreloadedImg'
 import Progress from './components/Progress'
 import Radio from './components/Radio'
+import Select from './components/Select'
 import Skeleton from './components/Skeleton'
 import Switch from './components/Switch'
+import Table from './components/Table'
 import Tabs from './components/Tabs'
 import Tag from './components/Tag'
 import Textarea from './components/Textarea'
 import TextLink from './components/TextLink'
+import Tooltip from './components/Tooltip'
 import './App.css'
 
 const initialTheme = localStorage.getItem('theme')
@@ -74,16 +77,19 @@ function App() {
       <IconButton />
       <Input />
       <Menu />
-      <Modal logJS />
+      <Modal />
       <PreloadedImg />
       <Progress />
       <Radio />
+      <Select logJS />
       <Skeleton />
       <Switch />
+      <Table />
       <Tabs />
       <Tag />
       <Textarea />
       <TextLink />
+      <Tooltip />
     </div>
   )
 }

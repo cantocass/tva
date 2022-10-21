@@ -11,19 +11,20 @@
     "lib": ["DOM", "es2015"],
     "module": "esnext",
     "moduleResolution": "nodenext",
-    "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
+      "@pluralsight/shared": ["./packages/shared/src/index.ts"],
       "test-utils": ["./packages/react-utils/tests/test-utils.ts"]
     },
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "resolveJsonModule": true,
     "removeComments": true,
     "strict": true,
     "skipLibCheck": true,
     "target": "esnext"
   },
-  "exclude": ["website", "scripts"]
+  "exclude": ["website", "scripts", "packages/*/npm"]
 }

@@ -6,17 +6,22 @@ const defaultProps = {
   column: false,
   justifyContent: 'space-between',
   textAlign: 'center',
+  type: 'base',
 }
 
 export default function Container(props = defaultProps) {
-  const classes = props.column ? styles.column : styles.base
+  const type = props.type ?? defaultProps.type
+
   return (
     <div
-      className={classes}
+      className={styles[type]}
       style={{
         alignItems: props.alignItems,
         justifyContent: props.justifyContent,
         textAlign: props.textAlign ?? 'center',
+        gridTemplateColumns:
+          props.gridColumns &&
+          `repeat(${props.gridColumns}, minmax(auto, max-content))`,
       }}
     >
       {props.children}

@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 👷‍♀️ Build experimental packages
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.1.0
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
@@ -19,7 +19,7 @@ jobs:
       - run: |
           yarn install
           yarn build:packages
-          tar -czvf experimental_packages.tar.gz packages/*/build
+          tar -czvf experimental_packages.tar.gz packages/*/npm
       - name: 🗃 Archive experimental packages
         uses: actions/upload-artifact@v3
         with:
@@ -31,7 +31,7 @@ jobs:
     name: 🚀 Publish experimental release
     needs: build-packages
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.1.0
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
@@ -43,7 +43,6 @@ jobs:
           path: ./experimental_packages
       - run: |
           tar -xzvf ${{steps.download.outputs.download-path}}/experimental_packages.tar.gz -C experimental_packages
-          yarn prepare:flags
           yarn config set -H 'npmAuthToken' "${{ secrets.NPM_TOKEN }}"
           yarn prepare:release --release experimental --commit=$GITHUB_SHA --ci
           yarn publish:packages --ci --tags experimental
