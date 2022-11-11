@@ -1,4 +1,4 @@
-import { menuHook } from '@pluralsight/shared'
+import { submenuHook } from '@pluralsight/shared'
 import {
   useCallback,
   useMemo,
@@ -14,10 +14,7 @@ import {
   stopKeyEvent,
 } from './utils'
 
-const menuExpanded = 'data-expanded'
-const triggerExpanded = 'aria-expanded'
-
-export function useMenuInteraction() {
+export function useSubmenuInteraction() {
   const [expanded, setExpanded] = useState(false)
   const menuRef = useRef<HTMLMenuElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -45,19 +42,19 @@ export function useMenuInteraction() {
     lastItem.focus()
   }
 
-  function setExpandedAttributes(value: 'true' | 'false') {
-    triggerRef.current?.setAttribute(triggerExpanded, value)
-    menuRef.current?.setAttribute(menuExpanded, value)
+  function setExpandedAttributes(value: boolean) {
+    triggerRef.current?.setAttribute('aria-expanded', value.toString())
+    menuRef.current?.setAttribute('data-expanded', value.toString())
   }
 
   const openMenu = useCallback(() => {
     setExpanded(true)
-    setExpandedAttributes('true')
+    setExpandedAttributes(true)
   }, [])
 
   const closeMenu = useCallback(() => {
     setExpanded(false)
-    setExpandedAttributes('false')
+    setExpandedAttributes(false)
   }, [])
 
   const toggleMenu = useCallback(() => {
@@ -73,18 +70,35 @@ export function useMenuInteraction() {
     focusFirstItem()
   }, [openMenu])
 
-  const handleMenuTriggerKeypress = useCallback(
+  const toggleMenuWithFocus = useCallback(() => {
+    toggleMenu()
+    focusFirstItem()
+  }, [toggleMenu])
+
+  const handleSubmenuTriggerKeypress = useCallback(
     (event: KeyboardEvent) => {
-      if (
-        event.key === 'ArrowDown' ||
-        event.key === 'Enter' ||
-        event.key === ' '
-      ) {
-        stopKeyEvent(event)
-        openMenuWithFocus()
+      switch (event.key) {
+        case 'ArrowRight':
+          stopKeyEvent(event)
+          openMenuWithFocus()
+          break
+
+        case 'ArrowLeft':
+          stopKeyEvent(event)
+          toggleMenu()
+          break
+
+        case 'Enter':
+        case ' ':
+          stopKeyEvent(event)
+          toggleMenuWithFocus()
+          break
+
+        default:
+          break
       }
     },
-    [openMenuWithFocus]
+    [openMenuWithFocus, toggleMenu, toggleMenuWithFocus]
   )
 
   const handleMenuKeypress = useCallback(
@@ -100,6 +114,7 @@ export function useMenuInteraction() {
           focusNextItem()
           break
 
+        case 'ArrowLeft':
         case 'Escape':
           stopKeyEvent(event)
           closeMenu()
@@ -144,32 +159,27 @@ export function useMenuInteraction() {
   )
 
   return useMemo(() => {
-    if (menuHook) {
+    if (submenuHook) {
       return {
         expanded,
         menu: {
-          [menuExpanded]: 'false' as 'true' | 'false',
           ref: menuRef,
-          role: 'menu',
-          onKeyDown: handleMenuKeypress,
           onBlur: handleBlur,
+          onKeyDown: handleMenuKeypress,
         },
         trigger: {
-          [triggerExpanded]: 'false' as 'true' | 'false',
           ref: triggerRef,
           onClick: toggleMenu,
-          onBlur: handleBlur,
-          onKeyDown: handleMenuTriggerKeypress,
+          onKeyDown: handleSubmenuTriggerKeypress,
         },
       }
     }
-
     return null
   }, [
     expanded,
     handleBlur,
     handleMenuKeypress,
-    handleMenuTriggerKeypress,
+    handleSubmenuTriggerKeypress,
     toggleMenu,
   ])
 }
